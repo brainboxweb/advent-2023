@@ -1,0 +1,15 @@
+
+
+type Animal struct{
+	Dog
+}
+func (a Animal) Walk () {
+
+}
+
+
+type  Dog struct{}
+
+func (a Dog) Walk () {
+
+}
