@@ -3,12 +3,8 @@ package day2
 import (
 	"testing"
 
-	// "github.com/brainboxweb/advent-2022/helpers"
-
 	"github.com/stretchr/testify/assert"
 )
-
-// const dataPath = "../data/"
 
 func TestParseGame(t *testing.T) {
 	tests := []struct {
@@ -21,30 +17,26 @@ func TestParseGame(t *testing.T) {
 				index: "Game 1",
 				turns: []Turn{
 					{
-						cubes: map[string]int{					
+						cubes: map[string]int{
 							"blue": 3,
-							"red": 4, 
+							"red":  4,
 						},
 					},
 					{
-						cubes: map[string]int{					
-							"red": 1,
+						cubes: map[string]int{
+							"red":   1,
 							"green": 2,
-							"blue": 6, 
+							"blue":  6,
 						},
 					},
 					{
-						cubes: map[string]int{					
+						cubes: map[string]int{
 							"green": 2,
 						},
 					},
 				},
 			},
 		},
-		// {
-		// 	dataPath + "day2.txt",
-		// 	12458,
-		// },
 	}
 	for _, tt := range tests {
 		t.Run(tt.data, func(t *testing.T) {
