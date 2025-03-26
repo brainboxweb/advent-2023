@@ -27,12 +27,11 @@ func TestDay7(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day7.Day7(dataSet, false)
+			result := day7.Day7(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
 }
-
 
 func TestDay7_Part2(t *testing.T) {
 	tests := []struct {
@@ -51,7 +50,7 @@ func TestDay7_Part2(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day7.Day7(dataSet, true)
+			result := day7.Part2(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}

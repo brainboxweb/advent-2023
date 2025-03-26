@@ -38,8 +38,17 @@ var rankingSystemWithJokers = map[string]int{
 	"J": 13,
 }
 
-func Day7(data []string, useJokers bool) int {
-	game := newGame(useJokers)
+func Day7(data []string) int {
+	game := newGame()
+	return play(data, game)
+}
+
+func Part2(data []string) int {
+	game := newGameWithJokers()
+	return play(data, game)
+}
+
+func play(data []string, game Game) int {
 	for _, line := range data {
 		parts := strings.Split(line, " ")
 		hand := parts[0]
@@ -50,13 +59,21 @@ func Day7(data []string, useJokers bool) int {
 	return game.GetScore()
 }
 
-func newGame(useJokers bool) Game {
-	g := Game{useJokers: useJokers}
-	if useJokers {
-		g.rankingSystem = rankingSystemWithJokers
-	} else {
-		g.rankingSystem = rankingSystem
+func newGame() Game {
+	g := Game{
+		useJokers:     false,
+		rankingSystem: rankingSystem,
 	}
+
+	return g
+}
+
+func newGameWithJokers() Game {
+	g := Game{
+		useJokers:     true,
+		rankingSystem: rankingSystemWithJokers,
+	}
+
 	return g
 }
 
@@ -112,8 +129,8 @@ func (h *Hand) rankWithJokers() {
 	cardList := "AKQT98765432"
 	cardListItems := strings.Split(cardList, "")
 	for _, item := range cardListItems {
-		new := strings.ReplaceAll(h.Cards, "J", item)
-		possibleHands = append(possibleHands, new)
+		newItem := strings.ReplaceAll(h.Cards, "J", item)
+		possibleHands = append(possibleHands, newItem)
 	}
 	possibleRanks := []int{}
 	for _, hand := range possibleHands {
@@ -129,10 +146,12 @@ func (h *Hand) rank() {
 	h.Rank = getRank(h.Cards)
 }
 
+//revive:disable:cyclomatic
+//revive:disable:cognitive-complexity
 func getRank(cards string) int {
 	ranker := make(map[rune]int)
 	for _, letter := range cards {
-		ranker[letter] += 1
+		ranker[letter]++
 	}
 	if len(ranker) == 1 {
 		return 1
@@ -168,9 +187,12 @@ func getRank(cards string) int {
 	if hasTwo {
 		return 6
 	}
-	return 7
 
+	return 7
 }
+
+//revive:enable:cognitive-complexity
+//revive:enable:cyclomatic
 
 // Implement the Len method required by sort.Interface
 func (g Game) Len() int {
@@ -179,14 +201,14 @@ func (g Game) Len() int {
 
 // Implement the Less method required by sort.Interface
 func (g Game) Less(i, j int) bool {
-	if g.Hands[i].Rank == g.Hands[j].Rank { // If the cards are the same, go card by card
+	if g.Hands[i].Rank == g.Hands[j].Rank { // cards same? go card by card
 		iStrings := strings.Split(g.Hands[i].Cards, "") // avoid runes :)
 		jStrings := strings.Split(g.Hands[j].Cards, "")
 		for x := 0; x < len(jStrings); x++ {
 			if g.rankingSystem[iStrings[x]] == g.rankingSystem[jStrings[x]] {
 				continue
 			}
-			return g.rankingSystem[iStrings[x]] > g.rankingSystem[jStrings[x]] // smaller wins
+			return g.rankingSystem[iStrings[x]] > g.rankingSystem[jStrings[x]]
 		}
 	}
 	return g.Hands[i].Rank > g.Hands[j].Rank

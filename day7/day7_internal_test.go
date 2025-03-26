@@ -69,10 +69,9 @@ func TestRankIt(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run("gary", func(t *testing.T) { // searhc fo "gary" entries"!!!
+		t.Run(tt.hand.Cards, func(t *testing.T) {
 			tt.hand.rank()
 			assert.Equal(t, tt.expected, tt.hand.Rank)
 		})
 	}
-
 }
