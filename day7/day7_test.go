@@ -33,7 +33,6 @@ func TestDay7(t *testing.T) {
 	}
 }
 
-
 func TestDay7_Part2(t *testing.T) {
 	tests := []struct {
 		dataFile string
