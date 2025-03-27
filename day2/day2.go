@@ -4,53 +4,50 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
+	"github.com/brainboxweb/advent-2023/day2/game"
 )
 
-func Day2(data []string) int {
-	games := []Game{}
+func Part1(data []string) int {
+	games := []*game.Game{}
 	for _, line := range data {
-		g := parseGame(line)
+		index, turnsData := parseGameData(line)
+		g := game.New(index)
+		for _, turnData := range turnsData {
+			g.AddTurn(turnData)
+		}
 		games = append(games, g)
 	}
-	//only 12 red cubes, 13 green cubes, and 14 blue cubes?
+
 	gameIDcount := 0
-	for i, g := range games {
-		gameOK := true
-		reds := g.GetColorCounts("red")
-		for _, r := range reds {
-			spew.Dump("reds: ", r)
-			if r > 12 {
-				gameOK = false
-			}
-		}
-		greens := g.GetColorCounts("green")
-		for _, g := range greens {
-			if g > 13 {
-				gameOK = false
-			}
-		}
-		blues := g.GetColorCounts("blue")
-		for _, b := range blues {
-			if b > 14 {
-				gameOK = false
-			}
-		}
+	for _, g := range games {
+		// 12 red cubes, 13 green cubes, and 14 blue cubes.
+		gameOK := g.IsPossible(
+			map[string]int{
+				"red":   12,
+				"green": 13,
+				"blue":  14,
+			},
+		)
 		if gameOK {
-			spew.Dump("good game: ", i+1)
-			gameIDcount += i + 1
+			gameIDcount += g.Index()
 		}
 	}
 
 	return gameIDcount
 }
 
-func Day2_2(data []string) int {
-	games := []Game{}
+func Part2(data []string) int {
+
+	games := []*game.Game{}
 	for _, line := range data {
-		g := parseGame(line)
+		index, turnsData := parseGameData(line)
+		g := game.New(index)
+		for _, turnData := range turnsData {
+			g.AddTurn(turnData)
+		}
 		games = append(games, g)
 	}
+
 	sumPowers := 0
 	for _, g := range games {
 		maxRed := 0
@@ -81,49 +78,29 @@ func Day2_2(data []string) int {
 	return sumPowers
 }
 
-func parseGame(str string) Game {
+func parseGameData(str string) (int, []map[string]int) {
+	gameIndex := 0
+	turnsData := []map[string]int{}
+
 	parts := strings.Split(str, ": ")
-	gameIndex := parts[0]
-	g := Game{index: gameIndex}
+	gameIndexPart := parts[0]
+	indexParts := strings.Split(gameIndexPart, " ")
+
+	gameIndex, err := strconv.Atoi(indexParts[1]) // handle error
+	if err != nil {
+		panic("not expected")
+	}
+
 	turns := strings.Split(parts[1], "; ")
 	for _, turn := range turns {
-		t := NewTurn()
+		turnData := make(map[string]int)
 		pps := strings.Split(turn, ", ")
 		for _, cube := range pps {
 			bits := strings.Split(cube, " ")
 			count, _ := strconv.Atoi(bits[0])
-			t.addCubes(bits[1], count)
+			turnData[bits[1]] = count
 		}
-		g.turns = append(g.turns, t)
+		turnsData = append(turnsData, turnData)
 	}
-	return g
-}
-
-type Turn struct {
-	cubes map[string](int)
-}
-
-type Game struct {
-	index string
-	turns []Turn
-}
-
-func NewTurn() Turn {
-	t := Turn{}
-	t.cubes = make(map[string]int)
-	return t
-}
-
-func (t *Turn) addCubes(color string, count int) {
-	t.cubes[color] = t.cubes[color] + count
-}
-
-func (g *Game) GetColorCounts(color string) []int {
-
-	// Hmm... think they
-	counts := []int{}
-	for _, t := range g.turns {
-		counts = append(counts, t.cubes[color])
-	}
-	return counts
+	return gameIndex, turnsData
 }
