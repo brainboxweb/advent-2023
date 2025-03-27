@@ -10,7 +10,7 @@ import (
 
 const dataPath = "../data/"
 
-func TestDay2(t *testing.T) {
+func TestPart1(t *testing.T) {
 	tests := []struct {
 		dataFile string
 		expected int
@@ -21,19 +21,19 @@ func TestDay2(t *testing.T) {
 		},
 		{
 			dataPath + "day2.txt",
-			2810, 
+			2810,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day2.Day2(dataSet)
+			result := day2.Part1(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
 }
 
-func TestDay2_2(t *testing.T) {
+func TestPart2(t *testing.T) {
 	tests := []struct {
 		dataFile string
 		expected int
@@ -44,13 +44,13 @@ func TestDay2_2(t *testing.T) {
 		},
 		{
 			dataPath + "day2.txt",
-			69110, 
+			69110,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day2.Day2_2(dataSet)
+			result := day2.Part2(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
