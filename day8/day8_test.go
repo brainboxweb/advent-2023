@@ -10,7 +10,7 @@ import (
 
 const dataPath = "../data/"
 
-func TestDay8(t *testing.T) {
+func TestPart1(t *testing.T) {
 	tests := []struct {
 		data     []string
 		dataFile string
@@ -40,14 +40,13 @@ func TestDay8(t *testing.T) {
 			} else {
 				dataset = tt.data
 			}
-			result := day8.Day8(dataset)
+			result := day8.Part1(dataset)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
 }
 
-
-func TestDay8_Part2(t *testing.T) {
+func TestPart2(t *testing.T) {
 	tests := []struct {
 		data     []string
 		dataFile string
@@ -56,7 +55,7 @@ func TestDay8_Part2(t *testing.T) {
 		{
 			[]string{},
 			dataPath + "day8_test_Part2.txt",
-			6, 
+			6,
 		},
 		{
 			[]string{},
@@ -72,7 +71,7 @@ func TestDay8_Part2(t *testing.T) {
 			} else {
 				dataset = tt.data
 			}
-			result := day8.Day8_Part2(dataset)
+			result := day8.Part2(dataset)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
