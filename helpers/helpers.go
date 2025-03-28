@@ -2,7 +2,6 @@ package helpers
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"strconv"
 )
@@ -11,6 +10,7 @@ func ReverseSlice(s []string) []string {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
 	}
+
 	return s
 }
 
@@ -18,28 +18,30 @@ func ReverseSliceOfSlices(s [][]string) [][]string {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
 	}
+
 	return s
 }
 
 func TransposeSliceOfSlices(slice [][]string) [][]string {
-    xl := len(slice[0])
-    yl := len(slice)
-    result := make([][]string, xl)
-    for i := range result {
-        result[i] = make([]string, yl)
-    }
-    for i := 0; i < xl; i++ {
-        for j := 0; j < yl; j++ {
-            result[i][j] = slice[j][i]
-        }
-    }
-    return result
+	xl := len(slice[0])
+	yl := len(slice)
+	result := make([][]string, xl)
+	for i := range result {
+		result[i] = make([]string, yl)
+	}
+	for i := 0; i < xl; i++ {
+		for j := 0; j < yl; j++ {
+			result[i][j] = slice[j][i]
+		}
+	}
+
+	return result
 }
 
 func GetData(filename string) []int {
 	file, err := os.Open(filename)
 	if err != nil {
-		log.Fatalf("failed opening file: %s", err)
+		panic("not expected")
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
@@ -62,7 +64,7 @@ func GetData(filename string) []int {
 func GetDataString(filename string) []string {
 	file, err := os.Open(filename)
 	if err != nil {
-		log.Fatalf("failed opening file: %s", err)
+		panic("not expected")
 	}
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
@@ -71,5 +73,6 @@ func GetDataString(filename string) []string {
 	for scanner.Scan() {
 		dat = append(dat, scanner.Text())
 	}
+
 	return dat
 }

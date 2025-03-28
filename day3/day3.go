@@ -4,35 +4,29 @@ import (
 	"fmt"
 )
 
-func Day3(data []string) int {
+const charSlash = 47
+const charColon = 58
+const charPeriod = 46
+const charAsterix = 42
 
-	// an array of the whole thing
+//revive:disable:cognitive-complexity
+//revive:disable:cyclomatic
+
+func Part1(data []string) int {
 	theArray := [][]rune{}
 	for _, line := range data {
-
 		lr := []rune{}
 		for _, r := range line {
 			lr = append(lr, r)
 		}
 		theArray = append(theArray, lr)
 	}
-
 	sum := 0
 	for x, line := range theArray {
-
 		inNumber := false
 		numberParts := []int{}
-
-		/*
-			46 is a period!!!
-			0 is 48
-			9 is 57
-		*/
-
 		for y, chr := range line {
-
-			// proper number (digit!)
-			if chr > 47 && chr < 58 {
+			if chr > charSlash && chr < charColon {
 				numberParts = append(numberParts, int(chr)-48) // that's okay
 				inNumber = true
 				// Fix the end of the line
@@ -44,7 +38,6 @@ func Day3(data []string) int {
 				}
 				continue
 			}
-
 			// NOT A DIGIT, not at the end of line
 			if inNumber {
 				if isPartNumber(theArray, x, y, len(numberParts)) {
@@ -57,16 +50,14 @@ func Day3(data []string) int {
 			inNumber = false
 		}
 	}
+
 	return sum
 }
 
-// * is 52
-func Day3_2(data []string) int {
-
+func Part2(data []string) int {
 	// an array of the whole thing
 	theArray := [][]rune{}
 	for _, line := range data {
-
 		lr := []rune{}
 		for _, r := range line {
 			lr = append(lr, r)
@@ -78,16 +69,12 @@ func Day3_2(data []string) int {
 
 	// sum := 0
 	for x, line := range theArray {
-
 		inNumber := false
 		numberParts := []int{}
-
 		for y, chr := range line {
-
-			if chr > 47 && chr < 58 {
+			if chr > charSlash && chr < charColon {
 				numberParts = append(numberParts, int(chr)-48) // that's okay
 				inNumber = true
-				// continue /// but what about the end of the line???
 				// Fix the end of the line
 				if y == len(line)-1 {
 					stars := getAsterixes(theArray, x, y, len(numberParts))
@@ -128,21 +115,10 @@ func Day3_2(data []string) int {
 	return ret
 }
 
-func buildNumber(numberParts []int) int {
-	ret := 0
-	multiplier := 1
-	for i := len(numberParts) - 1; i >= 0; i-- {
-		ret += numberParts[i] * multiplier
-		multiplier = multiplier * 10
-	}
-	return ret
-}
-
 func isPartNumber(shit [][]rune, x, y, size int) bool {
 	maxI := len(shit) - 1
 	maxJ := len(shit[0]) - 1
 	for i := (x - 1); i < (x + 2); i++ {
-
 		for j := y - size - 1; j < y+1; j++ {
 			if i < 0 || j < 0 {
 				continue
@@ -161,22 +137,6 @@ func isPartNumber(shit [][]rune, x, y, size int) bool {
 	return false
 }
 
-/*
-	46 is a period!!!
-	0 is 48
-	9 is 57
-
-*/
-func isSpecialCharacter(chr rune) bool {
-	if chr > 47 && chr < 58 {
-		return false
-	}
-	if chr == 46 {
-		return false
-	}
-	return true
-}
-
 func getAsterixes(theArray [][]rune, x, y, size int) [][]int {
 	maxI := len(theArray) - 1
 	maxJ := len(theArray[0]) - 1
@@ -192,12 +152,36 @@ func getAsterixes(theArray [][]rune, x, y, size int) [][]int {
 			if j > maxJ {
 				continue
 			}
-			if theArray[i][j] == 42 { // it's an asterix
+			if theArray[i][j] == charAsterix {
 				// Store and carry on
 				point := []int{i, j}
 				points = append(points, point)
 			}
 		}
 	}
+
 	return points
+}
+
+//revive:enable:cognitive-complexity
+
+func isSpecialCharacter(chr rune) bool {
+	if chr > charSlash && chr < charColon {
+		return false
+	}
+	if chr == charPeriod {
+		return false
+	}
+
+	return true
+}
+
+func buildNumber(numberParts []int) int {
+	ret := 0
+	multiplier := 1
+	for i := len(numberParts) - 1; i >= 0; i-- {
+		ret += numberParts[i] * multiplier
+		multiplier *= 10
+	}
+	return ret
 }

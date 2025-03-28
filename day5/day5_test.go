@@ -27,7 +27,7 @@ func TestDay5(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day5.Day5(dataSet)
+			result := day5.Part1(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
@@ -50,7 +50,7 @@ func TestDay5_2(t *testing.T) { // NB - needs ~35s to run
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day5.Day5Part2(dataSet)
+			result := day5.Part2(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
