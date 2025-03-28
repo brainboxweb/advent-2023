@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-func Day5(input []string) int {
+func Part1(input []string) int {
 	lineIndex := []int{}
 	for i, line := range input {
 		if line == "" {
@@ -20,7 +20,7 @@ func Day5(input []string) int {
 	return mapping(input, lineIndex, seedRanges)
 }
 
-func Day5Part2(input []string) int {
+func Part2(input []string) int {
 	lineIndex := []int{}
 	for i, line := range input {
 		if line == "" {
@@ -122,8 +122,8 @@ func parseSeedsInputPart2(input string) []SeedRange {
 	}
 	ranges := []SeedRange{}
 	for i := 0; i < len(items)-1; i += 2 {
-		min := items[i]
-		rang := SeedRange{Min: min, Count: items[i+1]}
+		minimum := items[i]
+		rang := SeedRange{Min: minimum, Count: items[i+1]}
 		ranges = append(ranges, rang)
 	}
 
@@ -156,10 +156,10 @@ type MapperPart struct {
 
 func (m *Mapper) Translate(input int) int {
 	for _, part := range m.Parts {
-		min := part.Source
-		max := min + part.Rang - 1 // If length is one, them min and max are same
-		if input >= min && input <= max {
-			return part.Dest + input - min // mapping found
+		minimum := part.Source
+		maximum := minimum + part.Rang - 1 // If length is one, min==max
+		if input >= minimum && input <= maximum {
+			return part.Dest + input - minimum // mapping found
 		}
 	}
 

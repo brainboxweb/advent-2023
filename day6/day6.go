@@ -1,7 +1,6 @@
 package day6
 
 func Day6(races []Race) int {
-
 	winCounts := []int{}
 	for _, race := range races {
 		winCounts = append(winCounts, race.DoIt())
@@ -10,6 +9,7 @@ func Day6(races []Race) int {
 	for _, thing := range winCounts {
 		ret *= thing
 	}
+
 	return ret
 }
 

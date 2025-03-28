@@ -36,8 +36,8 @@ func Part1(data []string) int {
 	return gameIDcount
 }
 
+//revive:disable:cognitive-complexity
 func Part2(data []string) int {
-
 	games := []*game.Game{}
 	for _, line := range data {
 		index, turnsData := parseGameData(line)
@@ -77,6 +77,8 @@ func Part2(data []string) int {
 	}
 	return sumPowers
 }
+
+//revive:enable:cognitive-complexity
 
 func parseGameData(str string) (int, []map[string]int) {
 	gameIndex := 0
