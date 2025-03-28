@@ -17,7 +17,9 @@ func newElement(left, right string) Element {
 	return Element{Left: left, Right: right}
 }
 
-func Day8(data []string) int {
+//revive:disable:cognitive-complexity
+
+func Part1(data []string) int {
 	instructions, elems := process(data)
 	stepCount := 0
 	index := "AAA"
@@ -36,11 +38,13 @@ func Day8(data []string) int {
 	}
 }
 
+//revive:enable:cognitive-complexity
+
 // There's a looping thing going on here.
 // - First loops in 2
 // - Second loops in 3
 // - Therefore they come together in 6: common multiple?
-func Day8_Part2(data []string) int {
+func Part2(data []string) int {
 	instructions, elems := process(data)
 	targetIndexes := getIndexesBySuffix(elems, "A")
 	myChan := make(chan int)
@@ -67,15 +71,22 @@ func process(data []string) ([]string, map[string]Element) {
 			continue
 		}
 		parts := strings.Split(line, " ")
-		elem := newElement(strings.Trim(parts[2], " =(),"), strings.Trim(parts[3], " =(),"))
+		left := strings.Trim(parts[2], " =(),")
+		right := strings.Trim(parts[3], " =(),")
+		elem := newElement(left, right)
 		elems[strings.Trim(parts[0], " =(),")] = elem
 	}
 	return instructions, elems
 }
 
-func runCommands(elems map[string]Element, instructions []string, targetIndex string, myChan chan int) {
-
+func runCommands(
+	elems map[string]Element,
+	instructions []string,
+	targetIndex string,
+	myChan chan int,
+) {
 	stepCount := 0
+
 	for {
 		for _, move := range instructions { // One at a time!
 			stepCount++
@@ -83,7 +94,7 @@ func runCommands(elems map[string]Element, instructions []string, targetIndex st
 			parts := strings.Split(nextIndex, "")
 			if parts[2] == "Z" {
 				myChan <- stepCount
-				return //important
+				return // important
 			}
 			targetIndex = nextIndex
 		}
@@ -101,7 +112,6 @@ func getIndexesBySuffix(elems map[string]Element, suffix string) []string {
 	ret := []string{}
 	for i := range elems {
 		parts := strings.Split(i, "")
-		// spew.Dump("the partsare ", parts)
 		if parts[2] == suffix {
 			ret = append(ret, i)
 		}
