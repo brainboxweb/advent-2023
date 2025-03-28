@@ -9,8 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
-func TestDay1(t *testing.T) {
+func TestPart1(t *testing.T) {
 	tests := []struct {
 		dataFile string
 		expected int
@@ -27,36 +26,36 @@ func TestDay1(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day1.Day1(dataSet)
+			result := day1.Part1(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
 }
 
-func TestDay1a(t *testing.T) {
+func TestPart2(t *testing.T) {
 	tests := []struct {
 		dataFile string
 		expected int
 	}{
 		{
 			"../data/day1a_test.txt",
-			281, // 281 SHOULD work
+			281,
 		},
 		{
 			"../data/day1.txt",
-			55686, 
+			55686,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.dataFile, func(t *testing.T) {
 			dataSet := helpers.GetDataString(tt.dataFile)
-			result := day1.Day1a(dataSet)
+			result := day1.Part2(dataSet)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
 }
 
-/// INTERNAL
+// INTERNAL
 
 func TestDoCalcDay1(t *testing.T) {
 	tests := []struct {
@@ -91,7 +90,7 @@ func TestDoCalcDay1(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
 			// dataSet := helpers.GetData(tt.dataFile)
-			result := day1.DoCalcDay1(tt.input)
+			result := day1.DoCalcPart1(tt.input)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
@@ -142,24 +141,22 @@ func TestDoCalcDay1a(t *testing.T) {
 		// 	"",
 		// 	,
 		// },
-// 		two1nine
-// 
-// 
-// xtwone3four
-// 
-// zoneight234
-// 7pqrstsixteen
+		// 		two1nine
+		//
+		//
+		// xtwone3four
+		//
+		// zoneight234
+		// 7pqrstsixteen
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
 			// dataSet := helpers.GetData(tt.dataFile)
-			result := day1.DoCalcDay1a(tt.input)
+			result := day1.DoCalcPart2(tt.input)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
 }
-
-
 
 // func TestDay1_2(t *testing.T) {
 // 	tests := []struct {
