@@ -9,7 +9,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
 func TestDay1(t *testing.T) {
 	tests := []struct {
 		dataFile string
@@ -44,7 +43,7 @@ func TestDay1a(t *testing.T) {
 		},
 		{
 			"../data/day1.txt",
-			55686, 
+			55686,
 		},
 	}
 	for _, tt := range tests {
@@ -55,8 +54,6 @@ func TestDay1a(t *testing.T) {
 		})
 	}
 }
-
-/// INTERNAL
 
 func TestDoCalcDay1(t *testing.T) {
 	tests := []struct {
@@ -79,14 +76,14 @@ func TestDoCalcDay1(t *testing.T) {
 			"treb7uchet",
 			77,
 		},
-		// {
-		// 	"abc11abczzzz",
-		// 	11,
-		// },
-		// {
-		// 	"abc99abczzzz",
-		// 	99,
-		// },
+		{
+			"abc11abczzzz",
+			11,
+		},
+		{
+			"abc99abczzzz",
+			99,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
@@ -134,21 +131,6 @@ func TestDoCalcDay1a(t *testing.T) {
 			"4nineeightseven2",
 			42,
 		},
-		// {
-		// 	"",
-		// 	,
-		// },
-		// {
-		// 	"",
-		// 	,
-		// },
-// 		two1nine
-// 
-// 
-// xtwone3four
-// 
-// zoneight234
-// 7pqrstsixteen
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
@@ -158,28 +140,3 @@ func TestDoCalcDay1a(t *testing.T) {
 		})
 	}
 }
-
-
-
-// func TestDay1_2(t *testing.T) {
-// 	tests := []struct {
-// 		dataFile string
-// 		expected int
-// 	}{
-// 		{
-// 			"../data/day1_test.txt",
-// 			45000,
-// 		},
-// 		{
-// 			"../data/day1.txt",
-// 			210367,
-// 		},
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.dataFile, func(t *testing.T) {
-// 			dataSet := helpers.GetData(tt.dataFile)
-// 			result := day1.Day1_2(dataSet)
-// 			assert.Equal(t, tt.expected, result)
-// 		})
-// 	}
-// }

@@ -42,11 +42,11 @@ func Part2(data []string) int {
 	return ret
 }
 
-func parseCard(input string) ([]int, []int) {
+func parseCard(input string) (winners, mine []int) {
 	parts := strings.Split(input, ":")
 	divided := strings.Split(parts[1], "|")
-	winners := extractCards(divided[0])
-	mine := extractCards(divided[1])
+	winners = extractCards(divided[0])
+	mine = extractCards(divided[1])
 
 	return winners, mine
 }
