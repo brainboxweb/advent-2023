@@ -15,11 +15,11 @@ func TestDay1(t *testing.T) {
 		expected int
 	}{
 		{
-			"../data/day1_test.txt",
+			"../testdata/day1_test.txt",
 			142,
 		},
 		{
-			"../data/day1.txt",
+			"../testdata/day1.txt",
 			55029,
 		},
 	}
@@ -38,11 +38,11 @@ func TestDay1a(t *testing.T) {
 		expected int
 	}{
 		{
-			"../data/day1a_test.txt",
+			"../testdata/day1a_test.txt",
 			281, // 281 SHOULD work
 		},
 		{
-			"../data/day1.txt",
+			"../testdata/day1.txt",
 			55686,
 		},
 	}
